@@ -1,10 +1,10 @@
 config = {
 
-    functionExport = {
+    function hasItem(ply, item, qtd)
+    
+    end
+    
+    function changedb()
 
-    },
-
-    functionConce = {
-                
-    },
+    end,
 }
