@@ -5,17 +5,18 @@ local table = {
 function render()
     dxDrawImage(391, 243, 564, 282, placeFolder('background')) 
     createEditBox('plate', 487, 351, 367, 91, {using = false, font = loadFont('semibold', 62), masked = false, onlynumber = false, textalign = 'center', maxcharacters = 7, othertext = 'Placa', text = {62, 60, 60, 255}, selected = {62, 60, 60, 255}}, false)
-
 end
 
 function showPanel()
     if table.eventHandler == false then
         addEventHandler('onClientRender', root, render)
         showCursor(true)
+        setPedAnimation(localPlayer, 'BD_FIRE', 'wash_up')
         table.eventHandler = true
     else
         removeEventHandler('onClientRender', root, render)
         showCursor(false)
+        setPedAnimation(localPlayer, nil)
         setCameraTarget(localPlayer, nil)
         table.eventHandler = false
     end
@@ -50,17 +51,21 @@ function getproxveh(player, distanciaMaxima)
 end
 
 
-bindKey('enter', 'up', function()
-    local plate = dxGetEditBoxText('plate')
-    local estaProximo, veiculoProximo = getproxveh(localPlayer, 5)
+bindKey('enter', 'down', function()
+    if table.eventHandler == true then
+        local plate = dxGetEditBoxText('plate')
+        local estaProximo, veiculoProximo = getproxveh(localPlayer, 5)
 
-    if #plate > 6 then
-        setVehiclePlateText(veiculoProximo, plate)
-        triggerServerEvent('asd', localPlayer)
+        if #plate > 6 then
+            setVehiclePlateText(veiculoProximo, plate)
+            triggerServerEvent('asd', localPlayer)
+            showPanel()
+        end
     end
 end)
 
-addCommandHandler('asd', function()
-    showPanel()
-    iprint(dxGetEditBoxText('plate'))
+bindKey('backspace', 'down', function()
+    if table.eventHandler == true then
+        showPanel()
+    end
 end)

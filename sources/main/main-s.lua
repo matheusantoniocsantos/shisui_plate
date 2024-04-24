@@ -28,17 +28,14 @@ end
 
 function open(ply)
     if getproxveh(ply, 5) then
-        iprint('asd')
-        triggerClientEvent(ply, 'shisui.plateOpenRender', ply)
+        if hasItem(ply) then
+            triggerClientEvent(ply, 'shisui.plateOpenRender', ply)
+        else
+            notifyS(ply,'Voce nao possui esse item','warning')
+        end
+    else
+        notifyS(ply,"Nenhum veiculo proximo!",'warning')
     end
 end
-
-addCommandHandler('teste', function(ply, cmd)
-    open(ply)
-end)
-
-function execDB()
-    config.functionConce
-end
-addEvent('shisui.plateOpenRender', true)
-addEventHandler('shisui.plateOpenRender', root, showPanel)
+addEvent('shisui.plateOpenRenderServer', true)
+addEventHandler('shisui.plateOpenRenderServer', root, open)
