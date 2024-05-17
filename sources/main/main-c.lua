@@ -25,18 +25,14 @@ addEvent('shisui.plateOpenRender', true)
 addEventHandler('shisui.plateOpenRender', root, showPanel)
 
 function getproxveh(player, distanciaMaxima)
-    if not isElement(player) or getElementType(player) ~= "player" then
-        return false, "Elemento do jogador inválido."
+    if not isElement(player) or getElementType(player) ~= 'player' then
+        return false, 'Elemento do jogador inválido.'
     end
-
-    if type(distanciaMaxima) ~= "number" or distanciaMaxima <= 0 then
-        return false, "Distância máxima inválida."
+    if type(distanciaMaxima) ~= 'number' or distanciaMaxima <= 0 then
+        return false, 'Distância máxima inválida.'
     end
-
     local xJogador, yJogador, zJogador = getElementPosition(player)
-
-    local veiculos = getElementsByType("vehicle")
-
+    local veiculos = getElementsByType('vehicle')
     for _, veiculo in ipairs(veiculos) do
         local xVeiculo, yVeiculo, zVeiculo = getElementPosition(veiculo)
 
@@ -46,10 +42,8 @@ function getproxveh(player, distanciaMaxima)
             return true, veiculo
         end
     end
-
     return false, nil
 end
-
 
 bindKey('enter', 'down', function()
     if table.eventHandler == true then
